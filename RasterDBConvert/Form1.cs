@@ -67,10 +67,10 @@ namespace RasterDBConvert
                 
 
                 // check if there are an equal amount of data vlaues and data names
-                if (datapointValues.Count != datapointNames.Count) 
+                if (datapointValues.Count != datapointNames.Count+1) 
                 {
-                    MessageBox.Show($"Aantal vars niet gelijk!\n{datapointValues.Count} != {datapointNames.Count}");
-                    return;
+                    MessageBox.Show($"Aantal vars niet gelijk!\n{datapointValues.Count} != {datapointNames.Count}\nSkipping {datapointValues[0]}");
+                    continue;
                 }
 
 
