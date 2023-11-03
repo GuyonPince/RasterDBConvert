@@ -58,8 +58,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="newDatapointNames.Text" xml:space="preserve">
-    <value>rijen[1]
-kolommen[1]
+    <value>gridrijen[1]
+gridkolommen[1]
 offsetx[1]
 offsety[1]
 steekx[1]
@@ -81,8 +81,8 @@ machinelengte5[1]
 machinelengte6[1]
 machinelengte7[1]
 machinelengte8[1]
-rijen[2]
-kolommen[2]
+gridrijen[2]
+gridkolommen[2]
 offsety[2]
 offsetx[2]
 steeky[2]
