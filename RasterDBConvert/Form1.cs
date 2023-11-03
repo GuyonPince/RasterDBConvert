@@ -1,71 +1,110 @@
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+
 namespace RasterDBConvert
 {
     public partial class Form1 : Form
     {
+        string filePath = "";
+
         public Form1()
         {
             InitializeComponent();
         }
-        string filePath = "";
-        private void button1_Click(object sender, EventArgs e)
+
+        // Select old databse file
+        private void SelectFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog dbFile = new OpenFileDialog();
             dbFile.ShowDialog();
             filePath = System.IO.Path.GetDirectoryName(dbFile.FileName);
-            textBox1.Text = dbFile.FileName;
+            dbFileName.Text = dbFile.FileName;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        // Convert the old databse file, saves in the same folder
+        // CONVERTED-rfagriddb.csv
+        private void convert_Click(object sender, EventArgs e)
         {
-            List<string> varNames = new List<string>();
-            List<string> newProgData = new List<string>();
-            string[] txt;
+            List<string> datapointNames = new List<string>();     // list of datapoint names to add to the values of the old db
+            List<string> newDB = new List<string>();        // updated database
+
+            string[] oldDB;
+
+            // try to read the old db file
             try
             {
-                txt = System.IO.File.ReadAllLines(textBox1.Text);
+                oldDB = System.IO.File.ReadAllLines(dbFileName.Text);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 return;
             }
-            
 
-            foreach (string line in richTextBox1.Lines)
+            // generate list of new datapoint names
+            foreach (string line in newDatapointNames.Lines)
             {
-                if (line == "EXTRA")
+                if (line.StartsWith("EXTRA"))
                 {
-                    for (int i =  1; i <= 101; i++)
+                    var extraRange = line.Split(" ").Last().Split("-");
+                    for (int i = int.Parse(extraRange[0]); i <= int.Parse(extraRange[1]); i++)
                     {
-                        varNames.Add($"{line}[{i}]");
+                        datapointNames.Add($"extra[{i}]");
                     }
                 }
                 else
                 {
-                    varNames.Add(line);
+                    datapointNames.Add(line);
                 }
             }
 
 
-            foreach (string prog in txt) 
+            foreach (string progData in oldDB)
             {
-                var datapoints = prog.Split(';').ToList();
-                List<string> newProgDataPoint = new List<string>();
-                if (datapoints.Count != varNames.Count)
+                List<string> newDatapoint = new List<string>();
+
+                var datapointValues = progData.Split(';').ToList();
+                
+
+                // check if there are an equal amount of data vlaues and data names
+                if (datapointValues.Count != datapointNames.Count) 
                 {
-                    MessageBox.Show($"Aantal vars niet gelijk!\n{datapoints.Count} != {varNames.Count}");
+                    MessageBox.Show($"Aantal vars niet gelijk!\n{datapointValues.Count} != {datapointNames.Count}");
                     return;
                 }
 
-                newProgDataPoint.Add(datapoints[0]);
-                for (int i = 1;i < datapoints.Count;i++)
+
+                // for every other datapoint, add prefix
+                newDatapoint.Add(datapointValues[0]);   //Program name, unchanged
+                newDatapoint.Add($"rijen[0]={datapointValues[1]}");
+                Debug.WriteLine(datapointValues[0]);
+                for (int i = 1; i < datapointValues.Count; i++)
                 {
-                    newProgDataPoint.Add($"{varNames[i]}={datapoints[i]}");
+                    try
+                    {
+                        newDatapoint.Add($"{datapointNames[i-1]}={datapointValues[i]}");
+                    }
+                    catch (Exception ex) { Debug.WriteLine(i); }
+                    
                 }
-                newProgData.Add(String.Join(";", newProgDataPoint));
+
+                // join all datapoints to program data and add to updated database
+                newDB.Add(String.Join(";", newDatapoint));
             }
 
-            File.WriteAllLines($"{filePath}/CONVERTED-rfagriddb.csv", newProgData);
+            try
+            {
+                File.WriteAllLines($"{filePath}/CONVERTED-rfagriddb.csv", newDB);
+                MessageBox.Show("Database succesfully converted");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message); return;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
         }
     }

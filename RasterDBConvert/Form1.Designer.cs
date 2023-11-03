@@ -28,79 +28,82 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            button1 = new Button();
-            richTextBox1 = new RichTextBox();
-            button2 = new Button();
-            label1 = new Label();
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.dbFileName = new System.Windows.Forms.TextBox();
+            this.SelectFile = new System.Windows.Forms.Button();
+            this.newDatapointNames = new System.Windows.Forms.RichTextBox();
+            this.convert = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
             // 
-            // textBox1
+            // dbFileName
             // 
-            textBox1.Location = new Point(24, 22);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(413, 23);
-            textBox1.TabIndex = 0;
+            this.dbFileName.Location = new System.Drawing.Point(24, 22);
+            this.dbFileName.Name = "dbFileName";
+            this.dbFileName.Size = new System.Drawing.Size(413, 23);
+            this.dbFileName.TabIndex = 0;
             // 
-            // button1
+            // SelectFile
             // 
-            button1.Location = new Point(443, 21);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Select file";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            this.SelectFile.Location = new System.Drawing.Point(443, 21);
+            this.SelectFile.Name = "SelectFile";
+            this.SelectFile.Size = new System.Drawing.Size(140, 23);
+            this.SelectFile.TabIndex = 1;
+            this.SelectFile.Text = "Select file";
+            this.SelectFile.UseVisualStyleBackColor = true;
+            this.SelectFile.Click += new System.EventHandler(this.SelectFile_Click);
             // 
-            // richTextBox1
+            // newDatapointNames
             // 
-            richTextBox1.Location = new Point(24, 104);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(413, 334);
-            richTextBox1.TabIndex = 2;
-            richTextBox1.Text = "";
+            this.newDatapointNames.Location = new System.Drawing.Point(24, 104);
+            this.newDatapointNames.Name = "newDatapointNames";
+            this.newDatapointNames.Size = new System.Drawing.Size(413, 334);
+            this.newDatapointNames.TabIndex = 2;
+            this.newDatapointNames.Text = resources.GetString("newDatapointNames.Text");
             // 
-            // button2
+            // convert
             // 
-            button2.Location = new Point(448, 104);
-            button2.Name = "button2";
-            button2.Size = new Size(140, 46);
-            button2.TabIndex = 3;
-            button2.Text = "Convert";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            this.convert.Location = new System.Drawing.Point(448, 104);
+            this.convert.Name = "convert";
+            this.convert.Size = new System.Drawing.Size(140, 97);
+            this.convert.TabIndex = 3;
+            this.convert.Text = "Convert";
+            this.convert.UseVisualStyleBackColor = true;
+            this.convert.Click += new System.EventHandler(this.convert_Click);
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(24, 86);
-            label1.Name = "label1";
-            label1.Size = new Size(91, 15);
-            label1.TabIndex = 4;
-            label1.Text = "DB var volgorde";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(24, 86);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 15);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "DB var volgorde";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(600, 450);
-            Controls.Add(label1);
-            Controls.Add(button2);
-            Controls.Add(richTextBox1);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
-            Name = "Form1";
-            Text = "Form1";
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(600, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.convert);
+            this.Controls.Add(this.newDatapointNames);
+            this.Controls.Add(this.SelectFile);
+            this.Controls.Add(this.dbFileName);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private Button button1;
-        private RichTextBox richTextBox1;
-        private Button button2;
+        private TextBox dbFileName;
+        private Button SelectFile;
+        private RichTextBox newDatapointNames;
+        private Button convert;
         private Label label1;
     }
 }
